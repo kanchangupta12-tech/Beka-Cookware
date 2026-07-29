@@ -15,8 +15,9 @@ public class Product {
 
     WebDriver driver = DriverFactory.getDriver();
     private static String prdName = ConfigReader.getValue("en.properties","productName");
-    private static String prdTitleInDutch = ConfigReader.getValue("nl.properties","prdTitleInDutch");
+    private static String prdTitleInDutch = ConfigReader.getValue("nl.properties","productName");
     private static final By product = By.xpath("//a[@class='product-item__url'][@aria-label='"+ prdName +"']");
+    private static final By productNL = By.xpath("//a[@class='product-item__url'][@aria-label='"+ prdTitleInDutch +"']");
     private static final By productImage = By.xpath("//div[@data-index='0']/div/picture/img");
     private static final By productTitle = By.xpath("//h1[@class='product__title']");
     private static final By productPrice = By.xpath("//span[@class='js-product-price']");
@@ -27,12 +28,26 @@ public class Product {
     private static final By imageSlide = By.xpath("//button[@class='swiper-next swiper-button js-slider-product--next']");
     private static final By scrollBestSeller = By.id("shopify-section-template--24904268349816__products_preview_Xde8gC");
 
+    Homepage hp = new Homepage();
+
     public void moveToProduct() {
-        WaitUtils.waitForElementToBeVisible(driver,driver.findElement(scrollBestSeller));
-        CommonFunctions.jsExecutorForScroll(driver.findElement(scrollBestSeller));
-        CommonFunctions.moveToElement(driver.findElement(scrollBestSeller));
-        WaitUtils.waitForElementToBeClickable(driver, driver.findElement(product));
-        driver.findElement(product).click();
+        String lang = hp.getSetLang();
+        if (lang.equalsIgnoreCase("Language en")){
+            WaitUtils.waitForElementToBeVisible(driver,driver.findElement(scrollBestSeller));
+            CommonFunctions.jsExecutorForScroll(driver.findElement(scrollBestSeller));
+            CommonFunctions.moveToElement(driver.findElement(scrollBestSeller));
+            WaitUtils.waitForElementToBeClickable(driver, driver.findElement(product));
+            driver.findElement(product).click();
+        } else if (lang.equalsIgnoreCase("Taal nl")){
+            WaitUtils.waitForElementToBeVisible(driver,driver.findElement(scrollBestSeller));
+            CommonFunctions.jsExecutorForScroll(driver.findElement(scrollBestSeller));
+            CommonFunctions.moveToElement(driver.findElement(scrollBestSeller));
+            WaitUtils.waitForElementToBeClickable(driver, driver.findElement(productNL));
+            driver.findElement(productNL).click();
+        } else {
+            Assert.fail("Language not yet supported");
+        }
+
 
     }
 

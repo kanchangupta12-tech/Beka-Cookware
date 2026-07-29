@@ -97,4 +97,12 @@ public class Homepage {
         }
     }
 
+    public String getSetLang(){
+        String currentLang = driver.findElement(languageSelection).getText();
+        currentLang = currentLang.replace("\n", " ").replace("\r", " ").trim();
+        System.out.println("language selected - " + currentLang.trim());
+        currentLang = currentLang.trim();
+        return currentLang;
+    }
+
 }

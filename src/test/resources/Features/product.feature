@@ -8,5 +8,6 @@ Feature: Product detail page
   Scenario: Validate locale-specific price format
     Given user navigates to the application
     When user switches language and selects a product
+    When user selects a product
     Then user validates the product price
     And validates the test image gallery
