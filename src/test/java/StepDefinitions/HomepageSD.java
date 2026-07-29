@@ -1,12 +1,13 @@
 package StepDefinitions;
 
+import Pages.Homepage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class HomepageSD {
-//testing
-    Pages.Homepage hp = new Pages.Homepage();
+
+    Homepage hp = new Homepage();
     @Given("user navigates to the application")
     public void user_navigates_to_the_application() {
         hp.openApplication();
@@ -20,9 +21,6 @@ public class HomepageSD {
        hp.checkFooterLogo();
     }
     @Then("user is able to switch language")
-    public void user_is_able_to_switch_language() {
-        // Write code here that turns the phrase above into concrete actions
-        hp.switchLanguage();
-    }
+    public void user_is_able_to_switch_language() { hp.switchLanguage();}
 
 }

@@ -1,23 +1,23 @@
 package Pages;
 
+import Utility.ConfigReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import utility.Assertions;
-import utility.DriverFactory;
-import utility.WaitUtils;
+import Utility.Assertions;
+import Utility.DriverFactory;
+import Utility.WaitUtils;
 
 import static org.testng.Assert.assertTrue;
 
 public class Homepage {
-    WebDriver driver = DriverFactory.getDriver("chrome");
+
+  WebDriver driver = DriverFactory.getDriver();
 
     public static String langConfirmation = null;
 
     private static final By acceptcookies = By.xpath("//button[text()='Cookies accepteren']");
-    private static final By Langcontinue = By.xpath("//button[text()='\n" +
-            "            Continue\n" +
-            "          ']");
+    private static final By Langcontinue = By.xpath("//button[contains(text(),'Continue')]");
     private static final By Headerlogo = By.xpath("//img[@class ='logo-desktop']");
     private static final By Footerlogo = By.xpath("//footer[@class='page-footer']/div/div/div/div/a/img");
     private static final By LabelfindstoreEN = By.xpath("//a[text()='Find a store']");
@@ -28,10 +28,11 @@ public class Homepage {
     public static final By changeLangToEng = By.xpath("//ul[@id='lang-list']/li/a[@data-value='en']");
 
 
-    public void openApplication() {
+
+    public void openApplication()  {
         //Launch URl
-        driver.get("https://www.beka-cookware.com/");
-        driver.manage().window().maximize();
+        driver.get(ConfigReader.getValue("config.properties","appURL"));
+
         //Accept cookies
         WebElement eleAcceptCookies = driver.findElement(acceptcookies);
         WaitUtils.waitForElementToBeClickable(driver, eleAcceptCookies);
@@ -39,6 +40,7 @@ public class Homepage {
 
         //Language popup
         WebElement eleLangcontinue = driver.findElement(Langcontinue);
+        WaitUtils.waitForElementToBeVisible(driver, eleLangcontinue);
         WaitUtils.waitForElementToBeClickable(driver, eleLangcontinue);
         eleLangcontinue.click();
 

@@ -1,29 +1,19 @@
-package utility;
+package Utility;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.FileReader;
 import java.util.Properties;
 
 public class CommonFunctions {
 
-    public static String getValue(String key) {
-        Properties prop = new Properties();
-        FileReader f = null;
-        try {
-            f =new FileReader("./config.properties");
-            prop.load(f);
-        }catch(Exception e){
-            System.out.println("No File found");
-        }
 
-        return prop.getProperty(key);
-    }
 
     public static WebDriver getDriver() {
-        return DriverFactoryOrg.getDriver();
+        return DriverFactory.getDriver();
     }
 
     public static JavascriptExecutor getJS() {
@@ -71,6 +61,10 @@ public class CommonFunctions {
     public static void selectOption(WebElement element,String index){
         Select select = new Select(element);
         select.selectByIndex(Integer.parseInt(index));
+    }
+
+    public static void moveToElement(WebElement element){
+        getActions().moveToElement(element).perform();
     }
 
 }
