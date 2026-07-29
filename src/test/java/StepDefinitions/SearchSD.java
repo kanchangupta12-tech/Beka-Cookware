@@ -26,4 +26,9 @@ public class SearchSD {
     public void user_gets_no_results_message() {
         search.validateNoResults();
     }
+
+    @When("user changes the language {string}")
+    public void user_changes_the_language(String string) {
+        search.changeLang(string);
+    }
 }

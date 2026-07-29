@@ -7,19 +7,28 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.asserts.Assertion;
 
 import java.util.List;
+
+import static org.testng.Assert.assertTrue;
 
 public class Search {
 
     WebDriver driver = DriverFactory.getDriver();
     Homepage hp = new Homepage();
 
+
+
+
     public static final By search = By.xpath("//button[@class='button button--search-trigger | js-modal-trigger']");
-    public static final By searchTxt = By.id("search");
+    public static final By searchTxt = By.xpath("//input[@id='search']");
     public static final By searchResultsGrid = By.xpath("//div[@class='search-result']");
+    public static final By changeLangToDutch = By.xpath("//ul[@id='lang-list']/li/a[@data-value='nl']");
+    public static final By changeLangToEng = By.xpath("//ul[@id='lang-list']/li/a[@data-value='en']");
+    private static final By langDropdown = By.xpath("//li[@class='top-nav__list-item top-nav__localisation']/form");
 
     public void searchProduct(String key){
         String lang = hp.getSetLang();
@@ -34,9 +43,18 @@ public class Search {
         }
         WaitUtils.waitForElementToBeClickable(driver, driver.findElement(search));
         driver.findElement(search).click();
-        WaitUtils.waitForElementToBeClickable(driver, driver.findElement(searchTxt));
-        driver.findElement(searchTxt).sendKeys(searchProduct);
-        driver.findElement(searchTxt).sendKeys(Keys.ENTER);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        // no unique property available, hence used actions
+        //WaitUtils.waitForElementToBeClickable(driver, driver.findElement(searchTxt));
+        //driver.findElement(searchTxt).sendKeys(searchProduct);
+        Actions action = new Actions(driver);
+        action.sendKeys(searchProduct).perform();
+        action.sendKeys(Keys.ENTER).perform();
+        //driver.findElement(searchTxt).sendKeys(Keys.ENTER);
     }
 
     public void validateResults(){
@@ -59,6 +77,27 @@ public class Search {
         } else {
            Assert.fail("Expected results not displayed or language not supported yet");
 
+        }
+    }
+
+    public void changeLang(String lang){
+        WebElement eleLangDropdown = driver.findElement(langDropdown);
+        WaitUtils.waitForElementToBeClickable(driver,eleLangDropdown);
+        eleLangDropdown.click();
+
+        if (lang.equalsIgnoreCase("en")){
+
+            WebElement eleLangChange = driver.findElement(changeLangToEng);
+            WaitUtils.waitForElementToBeClickable(driver,eleLangChange);
+            eleLangChange.click();
+            System.out.println("Language changed to english");
+        } else if (lang.equalsIgnoreCase("nl")){
+            WebElement eleLangChange = driver.findElement(changeLangToDutch);
+            WaitUtils.waitForElementToBeClickable(driver,eleLangChange);
+            eleLangChange.click();
+            System.out.println("Language changed to NL");
+        } else {
+            System.out.println("Language not supported yet");
         }
     }
 
