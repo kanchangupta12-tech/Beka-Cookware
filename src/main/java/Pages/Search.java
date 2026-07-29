@@ -38,8 +38,8 @@ public class Search {
         } else if (lang.equalsIgnoreCase("Taal nl")){
             searchProduct = ConfigReader.getValue("nl.properties",key);
         } else {
-            Assert.fail("Language not yet supported");
             searchProduct = "";
+            Assert.fail("Language not yet supported");
         }
         WaitUtils.waitForElementToBeClickable(driver, driver.findElement(search));
         driver.findElement(search).click();
@@ -86,7 +86,6 @@ public class Search {
         eleLangDropdown.click();
 
         if (lang.equalsIgnoreCase("en")){
-
             WebElement eleLangChange = driver.findElement(changeLangToEng);
             WaitUtils.waitForElementToBeClickable(driver,eleLangChange);
             eleLangChange.click();

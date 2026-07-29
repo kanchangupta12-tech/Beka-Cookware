@@ -57,11 +57,7 @@ public class Product {
 
     public void checkProductTitle(String expectedTitle) {
         String title = driver.findElement(productTitle).getText();
-        if (title.equalsIgnoreCase(expectedTitle)) {
-            Assert.assertTrue(true, "Product tile is displayed as expected - " + title);
-        } else {
-            Assert.fail("Product title is not displayed correctly - " + title);
-        }
+        Assert.assertTrue(title.equalsIgnoreCase(expectedTitle),"Product tile is not displayed as expected - " + title);
     }
 
     public String checkPrice() {
@@ -76,11 +72,7 @@ public class Product {
         CommonFunctions.jsExecutorForScroll(driver.findElement(productDesc));
         String detailedDesc = driver.findElement(productDesc).getText();
         detailedDesc = detailedDesc.trim();
-        if (detailedDesc.contains(expectedDesc)) {
-            Assert.assertTrue(true, "Product description is displayed as expected - " + expectedDesc);
-        } else {
-            Assert.fail("Product description is not displayed correctly - " + expectedDesc);
-        }
+        Assert.assertTrue(detailedDesc.contains(expectedDesc),"Product description is not displayed as expected - " + expectedDesc);
     }
 
 
@@ -92,7 +84,6 @@ public class Product {
     public void switchGalleryImage(){
         WaitUtils.waitForElementToBeClickable(driver, driver.findElement(imageSlide));
         driver.findElement(imageSlide).click();
-        Assert.assertTrue(productImage(),"Image gallery switch is working fine");
-
+        Assert.assertTrue(productImage(),"Image gallery switch is not working as expected");
     }
 }

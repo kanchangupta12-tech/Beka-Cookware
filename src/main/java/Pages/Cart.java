@@ -38,18 +38,10 @@ public class Cart {
         String lang = hp.getSetLang();
         if (lang.equalsIgnoreCase("Language en")){
             String expCartMsg = ConfigReader.getValue("en.properties","cartMsg");
-            if (cartMsg.contains(expCartMsg)) {
-                Assert.assertTrue(true, "empty card message is expected");
-            } else {
-                Assert.fail("unexpected empty cart message");
-            }
+            Assert.assertTrue(cartMsg.contains(expCartMsg), "empty card message is not as expected - "+cartMsg);
         } else if (lang.equalsIgnoreCase("Taal nl")){
             String expCartMsg = ConfigReader.getValue("nl.properties","cartMsg");
-            if (cartMsg.contains(expCartMsg)) {
-                Assert.assertTrue(true, "empty card message is expected");
-            } else {
-                Assert.fail("unexpected empty cart message");
-            }
+            Assert.assertTrue(cartMsg.contains(expCartMsg), "empty card message is not as expected - "+cartMsg);
         } else {
             Assert.fail("Language not yet supported");
         }
@@ -62,7 +54,7 @@ public class Cart {
 
     public void validateHomePageIsDisplayed(){
         WaitUtils.waitForElementToBeVisible(driver, driver.findElement(homepageValidation));
-        Assert.assertTrue(driver.findElement(homepageValidation).isDisplayed(), "Homepage displayed");
+        Assert.assertTrue(driver.findElement(homepageValidation).isDisplayed(), "Homepage not displayed");
     }
 
     public void addToCart(){
@@ -80,12 +72,7 @@ public class Cart {
     public void validateCartCounter(String expCnt){
         WaitUtils.waitForElementToBeClickable(driver, driver.findElement(cartCounter));
         String cnt = driver.findElement(cartCounter).getAttribute("value");
-        if (expCnt.equals(cnt)) {
-            Assert.assertTrue(true, "cart counter is expected");
-        } else {
-            Assert.fail("cart counter is not as expected");
-        }
-
+        Assert.assertEquals(cnt, expCnt, "cart counter is not as expected");
     }
 
     public void validatePriceFormat(){

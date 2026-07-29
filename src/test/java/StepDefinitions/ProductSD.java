@@ -19,7 +19,7 @@ public class ProductSD {
 
     @Then("user validates product image is displayed")
     public void user_validates_product_image_is_displayed() {
-        Assert.assertTrue(product.productImage(), "Product Image displayed correctly");
+        Assert.assertTrue(product.productImage(), "Product Image is not displayed correctly");
     }
 
     @Then("validates product name, price and description is displayed")
@@ -39,11 +39,7 @@ public class ProductSD {
         product.checkProductTitle(productTitle);
         product.checkDescription(productDescription);
         price = product.checkPrice();
-        if (!price.isEmpty()){
-            Assert.assertTrue(true, "Product price displayed");
-        } else {
-            Assert.fail("Product price is not displayed");
-        }
+        Assert.assertFalse(price.isEmpty(), "Product price is not displayed");
     }
 
     @When("user switches language and selects a product")
@@ -54,11 +50,7 @@ public class ProductSD {
     @Then("user validates the product price")
     public void user_validates_the_product_price() {
         String priceNL = product.checkPriceInNLlang();
-        if (!priceNL.isEmpty()){
-            Assert.assertTrue(true, "Product price displayed - "+priceNL);
-        } else {
-            Assert.fail("Product price is not displayed - "+priceNL);
-        }
+        Assert.assertFalse(priceNL.isEmpty(),"Product price is not displayed - "+priceNL);
     }
 
     @Then("validates the test image gallery")

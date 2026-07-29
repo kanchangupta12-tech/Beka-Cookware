@@ -64,11 +64,7 @@ public class Category {
             System.out.println("Cannot find the category or language is not correctly set");
         }
         String newCnt = validateProductGridCount();
-        if (Integer.parseInt(cnt) >= Integer.parseInt(newCnt)){
-            Assert.assertTrue(true, "Category Filter is behaving as expected");
-        } else {
-            Assert.fail("Category Filter is not behaving as expected");
-        }
+        Assert.assertTrue(Integer.parseInt(cnt) >= Integer.parseInt(newCnt),"Category Filter is not behaving as expected");
     }
 
     public void chooseProduct(String lang){
@@ -88,11 +84,8 @@ public class Category {
 //            System.out.println("Cannot find the category or language is not correctly set");
 //        }
 //        String newCnt = validateProductGridCount();
-//        if (Integer.parseInt(cnt) >= Integer.parseInt(newCnt)){
-//            Assert.assertTrue(true, "Sub Category Filter is behaving as expected");
-//        } else {
-//            Assert.fail("Sub Category Filter is not behaving as expected");
-//        }
+  //        Assert.assertTrue(Integer.parseInt(cnt) >= Integer.parseInt(newCnt), "Sub Category Filter is not behaving as expected");
+
    }
 
     public String validateProductGridCount(){

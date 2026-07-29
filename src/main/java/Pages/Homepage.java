@@ -69,12 +69,12 @@ public class Homepage {
     public void checkHeaderLogo() {
         WebElement eleHeaderlogo = driver.findElement(Headerlogo);
         boolean h_logo = eleHeaderlogo.isDisplayed();
-        Assertions.booleanCheck(h_logo,"Header logo is displayed - "+h_logo);
+        Assertions.booleanCheck(h_logo,"Header logo is not displayed - "+h_logo);
     }
     public void checkFooterLogo() {
         WebElement eleFooterlogo = driver.findElement(Footerlogo);
         boolean f_logo = eleFooterlogo.isDisplayed();
-        Assertions.booleanCheck(f_logo,"Footer logo is displayed - "+f_logo);
+        Assertions.booleanCheck(f_logo,"Footer logo is not displayed - "+f_logo);
     }
 
     //validate language switching functionality
