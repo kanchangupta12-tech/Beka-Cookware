@@ -39,6 +39,11 @@ public class Homepage {
         eleAcceptCookies.click();
 
         //Language popup
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         WebElement eleLangcontinue = driver.findElement(Langcontinue);
         WaitUtils.waitForElementToBeVisible(driver, eleLangcontinue);
         WaitUtils.waitForElementToBeClickable(driver, eleLangcontinue);

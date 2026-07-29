@@ -48,7 +48,7 @@ public class DriverFactory {
 
     }
 
-    @After
+   // @After
     public static void quitDriver(){
         WebDriver driver = DRIVER.get();
         if (driver != null) {
