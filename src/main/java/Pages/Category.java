@@ -21,7 +21,6 @@ public class Category {
     private static String productNL = ConfigReader.getValue("nl.properties","product");
     private static final By mainCategory = By.xpath("//a[contains(text(),'"+mainCat+"')]");
 
-    //ul[@class='facets__list']/li/div/label/span[@class='facets__label-text'][contains(text(),'Pasta')]
     private static final By product_name = By.xpath("//ul[@class='facets__list']/li/div/label/span[@class='facets__label-text'][contains(text(),'"+product+"')]");
     private static final By cat_name = By.xpath("//li[@class='facets__item']/div/label/span[contains(text(),'"+Cat+"')]");
     private static final By mainCategoryNL = By.xpath("//a[contains(text(),'"+mainCatNL+"')]");
@@ -37,6 +36,7 @@ public class Category {
 
     private static final By subCat = By.id("Facet-2-template--24904267661688__main");
     private static final By subCatSel = By.xpath("//label[@for='Filter-Subcategory-4']/span[@class='facets__label-text']");
+    private static final By subCatLabel = By.xpath("//details[@id='Details-2-template--24904267661688__main']");
 
     public void chooseMainCat(String lang){
         if(lang.equalsIgnoreCase("en")) {
@@ -68,23 +68,24 @@ public class Category {
     }
 
     public void chooseProduct(String lang){
+        String cnt = validateProductGridCount();
+        WaitUtils.waitForElementToBeVisible(driver, driver.findElement(subCatLabel));
+        CommonFunctions.jsExecutorForScroll(driver.findElement(subCatLabel));
+        CommonFunctions.moveToElement(driver.findElement(subCatLabel));
 
-        System.out.println("to be added");
-//        String cnt = validateProductGridCount();
-//
-//        if (lang.equalsIgnoreCase("en")) {
-//            CommonFunctions.jsExecutorForScroll(driver.findElement(subCat));
-//            WaitUtils.waitForElementToBeClickable(driver, driver.findElement(subCatSel));
-//            driver.findElement(subCatSel).click();
-//        }else if (lang.equalsIgnoreCase("nl")) {
-//            CommonFunctions.jsExecutorForScroll(driver.findElement(subCat));
-//            WaitUtils.waitForElementToBeClickable(driver, driver.findElement(subCatSel));
-//            driver.findElement(subCatSel).click();
-//        } else {
-//            System.out.println("Cannot find the category or language is not correctly set");
-//        }
-//        String newCnt = validateProductGridCount();
-  //        Assert.assertTrue(Integer.parseInt(cnt) >= Integer.parseInt(newCnt), "Sub Category Filter is not behaving as expected");
+        if (lang.equalsIgnoreCase("en")) {
+            CommonFunctions.jsExecutorForScroll(driver.findElement(subCat));
+            WaitUtils.waitForElementToBeClickable(driver, driver.findElement(subCatSel));
+            driver.findElement(subCatSel).click();
+        }else if (lang.equalsIgnoreCase("nl")) {
+            CommonFunctions.jsExecutorForScroll(driver.findElement(subCat));
+            WaitUtils.waitForElementToBeClickable(driver, driver.findElement(subCatSel));
+            driver.findElement(subCatSel).click();
+        } else {
+            System.out.println("Cannot find the category or language is not correctly set");
+        }
+        String newCnt = validateProductGridCount();
+          Assert.assertTrue(Integer.parseInt(cnt) >= Integer.parseInt(newCnt), "Sub Category Filter is not behaving as expected");
 
    }
 
