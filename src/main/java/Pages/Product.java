@@ -33,16 +33,16 @@ public class Product {
     public void moveToProduct() {
         String lang = hp.getSetLang();
         if (lang.equalsIgnoreCase("Language en")){
-            WaitUtils.waitForElementToBeVisible(driver,driver.findElement(scrollBestSeller));
+            WaitUtils.waitForElementToBeVisible(driver,scrollBestSeller);
             CommonFunctions.jsExecutorForScroll(driver.findElement(scrollBestSeller));
             CommonFunctions.moveToElement(driver.findElement(scrollBestSeller));
-            WaitUtils.waitForElementToBeClickable(driver, driver.findElement(product));
+            WaitUtils.waitForElementToBeClickable(driver, product);
             driver.findElement(product).click();
         } else if (lang.equalsIgnoreCase("Taal nl")){
-            WaitUtils.waitForElementToBeVisible(driver,driver.findElement(scrollBestSeller));
+            WaitUtils.waitForElementToBeVisible(driver,scrollBestSeller);
             CommonFunctions.jsExecutorForScroll(driver.findElement(scrollBestSeller));
             CommonFunctions.moveToElement(driver.findElement(scrollBestSeller));
-            WaitUtils.waitForElementToBeClickable(driver, driver.findElement(productNL));
+            WaitUtils.waitForElementToBeClickable(driver, productNL);
             driver.findElement(productNL).click();
         } else {
             Assert.fail("Language not yet supported");
@@ -67,7 +67,7 @@ public class Product {
 
     public void checkDescription(String expectedDesc) {
         //CommonFunctions.jsExecutorForScroll(driver.findElement(productDesc));
-        WaitUtils.waitForElementToBeClickable(driver, driver.findElement(productDesc));
+        WaitUtils.waitForElementToBeClickable(driver, productDesc);
         //driver.findElement(productDesc).click();
         CommonFunctions.jsExecutorForScroll(driver.findElement(productDesc));
         String detailedDesc = driver.findElement(productDesc).getText();
@@ -82,7 +82,7 @@ public class Product {
     }
 
     public void switchGalleryImage(){
-        WaitUtils.waitForElementToBeClickable(driver, driver.findElement(imageSlide));
+        WaitUtils.waitForElementToBeClickable(driver, imageSlide);
         driver.findElement(imageSlide).click();
         Assert.assertTrue(productImage(),"Image gallery switch is not working as expected");
     }

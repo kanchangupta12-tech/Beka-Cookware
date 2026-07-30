@@ -40,10 +40,10 @@ public class Category {
 
     public void chooseMainCat(String lang){
         if(lang.equalsIgnoreCase("en")) {
-            WaitUtils.waitForElementToBeClickable(driver, driver.findElement(mainCategory));
+            WaitUtils.waitForElementToBeClickable(driver, mainCategory);
             driver.findElement(mainCategory).click();
         }else if (lang.equalsIgnoreCase("nl")) {
-            WaitUtils.waitForElementToBeClickable(driver, driver.findElement(mainCategoryNL));
+            WaitUtils.waitForElementToBeClickable(driver, mainCategoryNL);
             driver.findElement(mainCategoryNL).click();
         } else {
             System.out.println("Cannot find the category or language is not correctly set");
@@ -53,11 +53,11 @@ public class Category {
     public void chooseCategory(String lang){
         String cnt = validateProductGridCount();
         if(lang.equalsIgnoreCase("en")) {
-            WaitUtils.waitForElementToBeClickable(driver, driver.findElement(cat_name));
+            WaitUtils.waitForElementToBeClickable(driver, cat_name);
             CommonFunctions.moveToElement(driver.findElement(cat_name));
             driver.findElement(cat_name).click();
         }else if (lang.equalsIgnoreCase("nl")) {
-            WaitUtils.waitForElementToBeClickable(driver, driver.findElement(cat_nameNL));
+            WaitUtils.waitForElementToBeClickable(driver, cat_nameNL);
             CommonFunctions.moveToElement(driver.findElement(cat_nameNL));
             driver.findElement(cat_nameNL).click();
         } else {
@@ -69,17 +69,17 @@ public class Category {
 
     public void chooseProduct(String lang){
         String cnt = validateProductGridCount();
-        WaitUtils.waitForElementToBeVisible(driver, driver.findElement(subCatLabel));
+        WaitUtils.waitForElementToBeVisible(driver, subCatLabel);
         CommonFunctions.jsExecutorForScroll(driver.findElement(subCatLabel));
         CommonFunctions.moveToElement(driver.findElement(subCatLabel));
 
         if (lang.equalsIgnoreCase("en")) {
             CommonFunctions.jsExecutorForScroll(driver.findElement(subCat));
-            WaitUtils.waitForElementToBeClickable(driver, driver.findElement(subCatSel));
+            WaitUtils.waitForElementToBeClickable(driver, subCatSel);
             driver.findElement(subCatSel).click();
         }else if (lang.equalsIgnoreCase("nl")) {
             CommonFunctions.jsExecutorForScroll(driver.findElement(subCat));
-            WaitUtils.waitForElementToBeClickable(driver, driver.findElement(subCatSel));
+            WaitUtils.waitForElementToBeClickable(driver, subCatSel);
             driver.findElement(subCatSel).click();
         } else {
             System.out.println("Cannot find the category or language is not correctly set");
@@ -91,7 +91,7 @@ public class Category {
 
     public String validateProductGridCount(){
 
-        WaitUtils.waitForElementToBeClickable(driver, driver.findElement(countInGridPage));
+        WaitUtils.waitForElementToBeClickable(driver, countInGridPage);
         String total = driver.findElement(countInGridPage).getText().trim();
         String[] arrTotal = total.split(" ");
         return arrTotal[0];

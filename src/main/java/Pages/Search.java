@@ -20,9 +20,6 @@ public class Search {
     WebDriver driver = DriverFactory.getDriver();
     Homepage hp = new Homepage();
 
-
-
-
     public static final By search = By.xpath("//button[@class='button button--search-trigger | js-modal-trigger']");
     public static final By searchTxt = By.xpath("//input[@id='search']");
     public static final By searchResultsGrid = By.xpath("//div[@class='search-result']");
@@ -41,7 +38,7 @@ public class Search {
             searchProduct = "";
             Assert.fail("Language not yet supported");
         }
-        WaitUtils.waitForElementToBeClickable(driver, driver.findElement(search));
+        WaitUtils.waitForElementToBeClickable(driver, search);
         driver.findElement(search).click();
         try {
             Thread.sleep(3000);
@@ -58,7 +55,7 @@ public class Search {
     }
 
     public void validateResults(){
-        WaitUtils.waitForElementToBeVisible(driver, driver.findElement(searchResultsGrid));
+        WaitUtils.waitForElementToBeVisible(driver, searchResultsGrid);
         List<WebElement> ele = driver.findElements(searchResultsGrid);
         int totalCnt = ele.size();
         if (totalCnt > 0) {
@@ -81,19 +78,16 @@ public class Search {
     }
 
     public void changeLang(String lang){
-        WebElement eleLangDropdown = driver.findElement(langDropdown);
-        WaitUtils.waitForElementToBeClickable(driver,eleLangDropdown);
-        eleLangDropdown.click();
+        WaitUtils.waitForElementToBeClickable(driver,langDropdown);
+        driver.findElement(langDropdown).click();
 
         if (lang.equalsIgnoreCase("en")){
-            WebElement eleLangChange = driver.findElement(changeLangToEng);
-            WaitUtils.waitForElementToBeClickable(driver,eleLangChange);
-            eleLangChange.click();
+            WaitUtils.waitForElementToBeClickable(driver,changeLangToEng);
+            driver.findElement(changeLangToEng).click();
             System.out.println("Language changed to english");
         } else if (lang.equalsIgnoreCase("nl")){
-            WebElement eleLangChange = driver.findElement(changeLangToDutch);
-            WaitUtils.waitForElementToBeClickable(driver,eleLangChange);
-            eleLangChange.click();
+            WaitUtils.waitForElementToBeClickable(driver,changeLangToDutch);
+            driver.findElement(changeLangToDutch).click();
             System.out.println("Language changed to NL");
         } else {
             System.out.println("Language not supported yet");

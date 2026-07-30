@@ -24,7 +24,7 @@ public class Cart {
     public static final By cartIncrement = By.xpath("//button[@class='quantity-select__button'][@data-increment='1']");
 
     public void clickCartOption(){
-        WaitUtils.waitForElementToBeClickable(driver, driver.findElement(cart));
+        WaitUtils.waitForElementToBeClickable(driver, cart);
         CommonFunctions.moveToElement(driver.findElement(cart));
         driver.findElement(cart).click();
         try {
@@ -35,7 +35,7 @@ public class Cart {
     }
 
     public void checkCartMessage(){
-        WaitUtils.waitForElementToBeClickable(driver, driver.findElement(emptyCartMsg));
+        WaitUtils.waitForElementToBeClickable(driver,emptyCartMsg);
         String cartMsg = driver.findElement(emptyCartMsg).getText();
         String lang = hp.getSetLang();
         if (lang.equalsIgnoreCase("Language en")){
@@ -55,12 +55,12 @@ public class Cart {
     }
 
     public void validateHomePageIsDisplayed(){
-        WaitUtils.waitForElementToBeVisible(driver, driver.findElement(homepageValidation));
+        WaitUtils.waitForElementToBeVisible(driver, homepageValidation);
         Assert.assertTrue(driver.findElement(homepageValidation).isDisplayed(), "Homepage not displayed");
     }
 
     public void addToCart(){
-        WaitUtils.waitForElementToBeClickable(driver, driver.findElement(addToCartbtn));
+        WaitUtils.waitForElementToBeClickable(driver, addToCartbtn);
         CommonFunctions.jsExecutorForScroll(driver.findElement(addToCartbtn));
         CommonFunctions.moveToElement(driver.findElement(addToCartbtn));
         driver.findElement(addToCartbtn).click();
@@ -72,20 +72,20 @@ public class Cart {
     }
 
     public void validateCartCounter(String expCnt){
-        WaitUtils.waitForElementToBeClickable(driver, driver.findElement(cartCounter));
+        WaitUtils.waitForElementToBeClickable(driver, cartCounter);
         String cnt = driver.findElement(cartCounter).getAttribute("value");
         Assert.assertEquals(cnt, expCnt, "cart counter is not as expected");
     }
 
     public void validatePriceFormat(){
-        WaitUtils.waitForElementToBeClickable(driver, driver.findElement(pricing));
+        WaitUtils.waitForElementToBeClickable(driver, pricing);
         String price = driver.findElement(pricing).getText();
         boolean isValidFormat = price.matches("^€\\d+,\\d{2}$");
         Assert.assertTrue(isValidFormat, "\"Price format is invalid! Expected €XX,XX but got: " + price);
     }
 
     public void updateCartCounter(String cnt){
-        WaitUtils.waitForElementToBeClickable(driver, driver.findElement(cartCounter));
+        WaitUtils.waitForElementToBeClickable(driver, cartCounter);
         driver.findElement(cartCounter).clear();
         driver.findElement(cartCounter).sendKeys(cnt);
         driver.findElement(pricing).click();
@@ -97,7 +97,7 @@ public class Cart {
     }
 
     public void incrementCart(){
-        WaitUtils.waitForElementToBeClickable(driver, driver.findElement(cartIncrement));
+        WaitUtils.waitForElementToBeClickable(driver, cartIncrement);
         driver.findElement(cartIncrement).click();
         try {
             Thread.sleep(3000);
@@ -107,7 +107,7 @@ public class Cart {
     }
 
     public void validateRecalculatePrice(){
-        WaitUtils.waitForElementToBeClickable(driver, driver.findElement(pricing));
+        WaitUtils.waitForElementToBeClickable(driver, pricing);
         String price = driver.findElement(pricing).getText();
         price = price.replaceAll("[€\\s]", "");
         price = price.replace(".", "").replace(",", ".");
@@ -123,7 +123,7 @@ public class Cart {
     }
 
     public Double fetchPrice(){
-        WaitUtils.waitForElementToBeClickable(driver, driver.findElement(pricing));
+        WaitUtils.waitForElementToBeClickable(driver, pricing);
         String price = driver.findElement(pricing).getText();
         price = price.replaceAll("[€\\s]", "");
         price = price.replace(".", "").replace(",", ".");
@@ -131,7 +131,7 @@ public class Cart {
     }
 
     public void checkEmptyCartMessage(String lang){
-        WaitUtils.waitForElementToBeClickable(driver, driver.findElement(emptyCartMsg));
+        WaitUtils.waitForElementToBeClickable(driver, emptyCartMsg);
         String cartMsg = driver.findElement(emptyCartMsg).getText();
         if (lang.equalsIgnoreCase("en")){
             String expCartMsg = ConfigReader.getValue("en.properties","cartMsg");

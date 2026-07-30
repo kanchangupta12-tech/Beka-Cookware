@@ -34,9 +34,8 @@ public class Homepage {
         driver.get(ConfigReader.getValue("config.properties","appURL"));
 
         //Accept cookies
-        WebElement eleAcceptCookies = driver.findElement(acceptcookies);
-        WaitUtils.waitForElementToBeClickable(driver, eleAcceptCookies);
-        eleAcceptCookies.click();
+        WaitUtils.waitForElementToBeClickable(driver, acceptcookies);
+        driver.findElement(acceptcookies).click();
 
         //Language popup
         try {
@@ -44,10 +43,9 @@ public class Homepage {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        WebElement eleLangcontinue = driver.findElement(Langcontinue);
-        WaitUtils.waitForElementToBeVisible(driver, eleLangcontinue);
-        WaitUtils.waitForElementToBeClickable(driver, eleLangcontinue);
-        eleLangcontinue.click();
+        WaitUtils.waitForElementToBeVisible(driver, Langcontinue);
+        WaitUtils.waitForElementToBeClickable(driver, Langcontinue);
+        driver.findElement(Langcontinue).click();
 
         String currentLangSelection = driver.findElement(languageSelection).getText();
         currentLangSelection = currentLangSelection.replace("\n", " ").replace("\r", " ").trim();
@@ -79,26 +77,21 @@ public class Homepage {
 
     //validate language switching functionality
     public void switchLanguage() {
-        WebElement eleLangDropdown = driver.findElement(langDropdown);
-        WaitUtils.waitForElementToBeClickable(driver,eleLangDropdown);
-        eleLangDropdown.click();
+        WaitUtils.waitForElementToBeClickable(driver,langDropdown);
+        driver.findElement(langDropdown).click();
 
         if (langConfirmation.equalsIgnoreCase("eng")){
-            WebElement eleLangChange = driver.findElement(changeLangToDutch);
-            WaitUtils.waitForElementToBeClickable(driver,eleLangChange);
-            eleLangChange.click();
-            WebElement eleFindAStore = driver.findElement(LabelfindstoreNL);
-            WaitUtils.waitForElementToBeVisible(driver,eleFindAStore);
-            boolean eleStatus = eleFindAStore.isDisplayed();
-            assertTrue(eleStatus,"Language changed to NL -"+eleStatus);
+            WaitUtils.waitForElementToBeClickable(driver,changeLangToDutch);
+            driver.findElement(changeLangToDutch).click();
+            WaitUtils.waitForElementToBeVisible(driver,LabelfindstoreNL);
+            boolean eleStatus = driver.findElement(LabelfindstoreNL).isDisplayed();
+            assertTrue(eleStatus,"Language not changed to NL -"+eleStatus);
         } else if (langConfirmation.equalsIgnoreCase("nl")){
-            WebElement eleLangChange = driver.findElement(changeLangToEng);
-            WaitUtils.waitForElementToBeClickable(driver,eleLangChange);
-            eleLangChange.click();
-            WebElement eleFindAStore = driver.findElement(LabelfindstoreEN);
-            WaitUtils.waitForElementToBeVisible(driver,eleFindAStore);
-            boolean eleStatus = eleFindAStore.isDisplayed();
-            assertTrue(eleStatus,"Language changed to ENG -"+eleStatus);
+            WaitUtils.waitForElementToBeClickable(driver,changeLangToEng);
+            driver.findElement(changeLangToEng).click();
+            WaitUtils.waitForElementToBeVisible(driver,LabelfindstoreEN);
+            boolean eleStatus = driver.findElement(LabelfindstoreEN).isDisplayed();
+            assertTrue(eleStatus,"Language not changed to ENG -"+eleStatus);
         }
     }
 
