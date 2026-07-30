@@ -112,7 +112,7 @@ public class Cart {
         price = price.replaceAll("[€\\s]", "");
         price = price.replace(".", "").replace(",", ".");
         incrementCart();
-        WaitUtils.waitForElementToBeClickable(driver, driver.findElement(pricing));
+        WaitUtils.waitForElementToBeClickable(driver, pricing);
         String newPrice = driver.findElement(pricing).getText();
         newPrice = newPrice.replaceAll("[€\\s]", "");
         newPrice = newPrice.replace(".", "").replace(",", ".");
