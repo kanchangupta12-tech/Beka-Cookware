@@ -25,7 +25,13 @@ Built with Selenium (Java), Cucumber, TestNG and Maven following the page object
 - Google Chrome and Edge are supported
 
 ## Setup
+```bash
 git clone <https://github.com/kanchangupta12-tech/Beka-Cookware.git>
 cd Beka-Cookware
 mvn clean install -DskipTests
+```
 
+## Running tests
+```bash
+mvn test
+```
