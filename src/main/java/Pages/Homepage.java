@@ -32,7 +32,13 @@ public class Homepage {
 
     public void openApplication()  {
         //Launch URl
-        driver.get(ConfigReader.getValue("config.properties","appURL"));
+        String env = ConfigReader.getValue("config.properties","env");
+        if (env.equalsIgnoreCase("prod")){
+            driver.get(ConfigReader.getValue("config.properties","appURL"));
+        } else {
+            System.out.println("Please define appURL for respective env to proceed with testing");
+        }
+
 
         //Accept cookies
         WaitUtils.waitForElementToBeClickable(driver, acceptcookies);

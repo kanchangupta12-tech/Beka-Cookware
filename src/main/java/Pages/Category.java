@@ -94,7 +94,9 @@ public class Category {
         WaitUtils.waitForElementToBeClickable(driver, countInGridPage);
         String total = driver.findElement(countInGridPage).getText().trim();
         String[] arrTotal = total.split(" ");
-        return arrTotal[0];
+        //return arrTotal[0];
+        java.util.regex.Matcher m = java.util.regex.Pattern.compile("\\d+").matcher(total);
+        return m.find() ? m.group() : "0";
 
     }
 }
