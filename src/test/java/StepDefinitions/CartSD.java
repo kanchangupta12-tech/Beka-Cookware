@@ -2,6 +2,7 @@ package StepDefinitions;
 
 import Pages.Cart;
 import Pages.Product;
+import Utility.ConfigReader;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
@@ -11,6 +12,7 @@ public class CartSD {
     Cart cart = new Cart();
     Product product = new Product();
     Double price;
+    String lang = ConfigReader.getValue("config.properties","language");
 
     @When("user click on cart menu")
     public void user_click_on_cart_menu() {
@@ -64,7 +66,7 @@ public class CartSD {
 
     @Then("user validates the cart is empty")
     public void user_validates_the_cart_is_empty() {
-        cart.checkEmptyCartMessage("en");
+        cart.checkEmptyCartMessage(lang);
     }
 
     @When("user opens the cart page and update the quantity to ten")

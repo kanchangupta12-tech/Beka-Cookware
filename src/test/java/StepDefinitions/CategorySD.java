@@ -1,22 +1,25 @@
 package StepDefinitions;
 
 import Pages.Category;
+import Utility.ConfigReader;
 import io.cucumber.java.en.Then;
 
 public class CategorySD {
 
     Category cat = new Category();
+    String lang = ConfigReader.getValue("config.properties","language");
+
     @Then("user clicks on cookware category")
     public void user_clicks_on_cookware_category() {
-        cat.chooseMainCat("en");
+        cat.chooseMainCat(lang);
     }
     @Then("choose any product set category and validates the product displayed count")
     public void choose_any_product_set_and_validates_the_product_displayed_count() {
-        cat.chooseCategory("en");
+        cat.chooseCategory(lang);
     }
     @Then("user choose any subcategories subCategory and validates the product displayed count")
     public void user_choose_any_subcategories_and_validates_the_product_displayed_count() {
-        cat.chooseProduct("en");
+        cat.chooseProduct(lang);
     }
 
 }

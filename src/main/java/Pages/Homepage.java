@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import Utility.Assertions;
 import Utility.DriverFactory;
 import Utility.WaitUtils;
+import org.openqa.selenium.support.ui.Wait;
 
 import static org.testng.Assert.assertTrue;
 
@@ -47,20 +48,30 @@ public class Homepage {
         WaitUtils.waitForElementToBeClickable(driver, Langcontinue);
         driver.findElement(Langcontinue).click();
 
-        String currentLangSelection = driver.findElement(languageSelection).getText();
-        currentLangSelection = currentLangSelection.replace("\n", " ").replace("\r", " ").trim();
-        System.out.println("language selected - " + currentLangSelection.trim());
-
-        if (currentLangSelection.equalsIgnoreCase("Language en")) {
-            System.out.println("Homepage is loaded with Language \"English\"");
-            langConfirmation = "ENG";
-
-        } else if (currentLangSelection.equalsIgnoreCase("Language nl")) {
-            System.out.println("Homepage is loaded with Language \"Dutch\"");
-            langConfirmation = "NL";
-        } else {
-            System.out.println("Homepage is loaded with different language");
+        //select language
+        String target = ConfigReader.getValue("config.properties","language");
+        if (target.trim().isEmpty()){
+            target = "en";
         }
+
+        setLanguage(target.trim().toLowerCase());
+        String lang = getCurrentLanguage();
+        System.out.println("Language selected - "+ lang);
+
+//        String currentLangSelection = driver.findElement(languageSelection).getText();
+//        currentLangSelection = currentLangSelection.replace("\n", " ").replace("\r", " ").trim();
+//        System.out.println("language selected - " + currentLangSelection.trim());
+//
+//        if (currentLangSelection.equalsIgnoreCase("Language en")) {
+//            System.out.println("Homepage is loaded with Language \"English\"");
+//            langConfirmation = "ENG";
+//
+//        } else if (currentLangSelection.equalsIgnoreCase("Language nl")) {
+//            System.out.println("Homepage is loaded with Language \"Dutch\"");
+//            langConfirmation = "NL";
+//        } else {
+//            System.out.println("Homepage is loaded with different language");
+//        }
     }
 
     //validate home page loads correctly
@@ -101,6 +112,30 @@ public class Homepage {
         System.out.println("language selected - " + currentLang.trim());
         currentLang = currentLang.trim();
         return currentLang;
+    }
+
+    public void setLanguage(String target){
+        if (getCurrentLanguage().equals(target)){
+            return;
+        }
+        WaitUtils.waitForElementToBeClickable(driver, langDropdown).click();
+        if (target.equals("nl")){
+            WaitUtils.waitForElementToBeClickable(driver,changeLangToDutch).click();
+        } else {
+            WaitUtils.waitForElementToBeClickable(driver,changeLangToEng).click();
+        }
+        WaitUtils.waitForElementToBeVisible(driver, languageSelection);
+    }
+
+    public String getCurrentLanguage(){
+        String raw = driver.findElement(languageSelection).getText();
+        raw = raw.replace("\n"," ").replace("\r"," ").trim();
+        if (raw.endsWith("nl")){
+            return "nl";
+        } else if (raw.endsWith("en")){
+            return "en";
+        }
+        return "unknown";
     }
 
 }
