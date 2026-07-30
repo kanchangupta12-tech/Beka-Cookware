@@ -20,8 +20,8 @@ Built with Selenium (Java), Cucumber, TestNG and Maven following the page object
 ---
 
 ## Prerequisites
-- JDK 21+ ('java -version')
-- Maven 3.9+ ('mvn -version')
+- JDK 21+ (`java -version`)
+- Maven 3.9+ (`mvn -version`)
 - Google Chrome and Edge are supported
 
 ## Setup
@@ -35,3 +35,17 @@ mvn clean install -DskipTests
 ```bash
 mvn test
 ```
+---
+
+## Test Scenarios Covered
+1. **HomePage** - validated logo, navigation, footer, page title in English and Dutch and language switching functionality.
+2. **Navigation & Categories** - validated product grid, Applied filters + dynamic updates.
+3. **Product Detail** - validated product name, price, description, images, euro price format & Test image gallery behavior.
+4. **Cart** - validated add product, cart count, subtotal, quantity update, recalculation and removal
+5. **Search** - validated products search in grid, invalid product search in grid
+6. **Negative & Edge cases** - validated cart quantity zero removes item, large quantity cart recalculation, special character search results
+
+## Reports
+Cucumber reports are generated under `target/cucumber-reports/`
+
+- `report.html` - human-readable report
