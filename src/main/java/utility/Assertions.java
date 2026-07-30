@@ -6,6 +6,11 @@ public class Assertions {
 
     static SoftAssert ast = new SoftAssert();
 
+    //start fresh soft assert per scenario
+    public static void init(){
+        ast = new SoftAssert();
+    }
+
     public static void comparisonCheck(String actual,String expected, String message){
         ast.assertEquals(actual,expected,message);
     }
