@@ -31,4 +31,9 @@ public class SearchSD {
     public void user_changes_the_language(String string) {
         search.changeLang(string);
     }
+
+    @When("user search a using special characters")
+    public void user_search_a_using_special_characters() {
+        search.searchProduct("invalidSpecialCharacter");
+    }
 }

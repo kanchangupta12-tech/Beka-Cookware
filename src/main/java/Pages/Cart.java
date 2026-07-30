@@ -5,7 +5,9 @@ import Utility.ConfigReader;
 import Utility.DriverFactory;
 import Utility.WaitUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 
 public class Cart {
@@ -82,6 +84,18 @@ public class Cart {
         Assert.assertTrue(isValidFormat, "\"Price format is invalid! Expected €XX,XX but got: " + price);
     }
 
+    public void updateCartCounter(String cnt){
+        WaitUtils.waitForElementToBeClickable(driver, driver.findElement(cartCounter));
+        driver.findElement(cartCounter).clear();
+        driver.findElement(cartCounter).sendKeys(cnt);
+        driver.findElement(pricing).click();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void incrementCart(){
         WaitUtils.waitForElementToBeClickable(driver, driver.findElement(cartIncrement));
         driver.findElement(cartIncrement).click();
@@ -105,6 +119,29 @@ public class Cart {
         Double intPrice = Double.parseDouble(price);
         Double intNewPrice = Double.parseDouble(newPrice);
         Assert.assertTrue(intPrice < intNewPrice,"Pricing is not recalculated correctly: "+price+" , "+newPrice);
+
+    }
+
+    public Double fetchPrice(){
+        WaitUtils.waitForElementToBeClickable(driver, driver.findElement(pricing));
+        String price = driver.findElement(pricing).getText();
+        price = price.replaceAll("[€\\s]", "");
+        price = price.replace(".", "").replace(",", ".");
+        return Double.parseDouble(price);
+    }
+
+    public void checkEmptyCartMessage(String lang){
+        WaitUtils.waitForElementToBeClickable(driver, driver.findElement(emptyCartMsg));
+        String cartMsg = driver.findElement(emptyCartMsg).getText();
+        if (lang.equalsIgnoreCase("en")){
+            String expCartMsg = ConfigReader.getValue("en.properties","cartMsg");
+            Assert.assertTrue(cartMsg.contains(expCartMsg), "empty card message is not as expected - "+cartMsg);
+        } else if (lang.equalsIgnoreCase("nl")){
+            String expCartMsg = ConfigReader.getValue("nl.properties","cartMsg");
+            Assert.assertTrue(cartMsg.contains(expCartMsg), "empty card message is not as expected - "+cartMsg);
+        } else {
+            Assert.fail("Language not yet supported");
+        }
 
     }
 }

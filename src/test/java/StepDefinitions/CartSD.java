@@ -4,11 +4,13 @@ import Pages.Cart;
 import Pages.Product;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.testng.Assert;
 
 public class CartSD {
 
     Cart cart = new Cart();
     Product product = new Product();
+    Double price;
 
     @When("user click on cart menu")
     public void user_click_on_cart_menu() {
@@ -54,5 +56,28 @@ public class CartSD {
         cart.validateRecalculatePrice();
     }
 
+    @When("user opens the cart page and update the quantity to zero")
+    public void user_opens_the_cart_page_and_update_the_quantity_to_zero() {
+        cart.updateCartCounter("0");
 
+    }
+
+    @Then("user validates the cart is empty")
+    public void user_validates_the_cart_is_empty() {
+        cart.checkEmptyCartMessage("en");
+    }
+
+    @When("user opens the cart page and update the quantity to ten")
+    public void user_opens_the_cart_page_and_update_the_quantity_to_ten() {
+        price = cart.fetchPrice();
+        price = price * 10;
+        cart.updateCartCounter("10");
+    }
+
+    @Then("user validates the price is updated for ten quantity")
+    public void user_validates_the_price_is_updated_for_quantity() {
+        Double upPrice = cart.fetchPrice();
+        Assert.assertEquals(price, upPrice,"Price is not updated correctly - " + price + "," + upPrice);
+
+    }
 }
