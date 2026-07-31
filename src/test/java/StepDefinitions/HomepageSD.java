@@ -1,6 +1,7 @@
 package StepDefinitions;
 
 import Pages.Homepage;
+import Utility.ConfigReader;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -8,6 +9,8 @@ import io.cucumber.java.en.When;
 public class HomepageSD {
 
     Homepage hp = new Homepage();
+    String lang = ConfigReader.getValue("config.properties","language");
+
     @Given("user navigates to the application")
     public void user_navigates_to_the_application() {
         hp.openApplication();
@@ -21,6 +24,6 @@ public class HomepageSD {
        hp.checkFooterLogo();
     }
     @Then("user is able to switch language")
-    public void user_is_able_to_switch_language() { hp.switchLanguage();}
+    public void user_is_able_to_switch_language() { hp.setLanguage(lang);}
 
 }

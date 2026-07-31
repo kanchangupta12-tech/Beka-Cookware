@@ -12,6 +12,7 @@ public class ProductSD {
     Product product = new Product();
     Homepage hp = new Homepage();
     String price;
+    String lang = ConfigReader.getValue("config.properties","language");
     @When("user selects a product")
     public void user_selects_a_product() {
         product.moveToProduct();
@@ -27,10 +28,10 @@ public class ProductSD {
         String productTitle = "";
         String productDescription = "";
 
-        if ( Homepage.langConfirmation.equalsIgnoreCase("eng")) {
+        if ( lang.equalsIgnoreCase("en")) {
             productTitle = ConfigReader.getValue("en.properties","productName");
             productDescription = ConfigReader.getValue("en.properties","productDescription");
-        } else if (Homepage.langConfirmation.equalsIgnoreCase("nl")){
+        } else if (lang.equalsIgnoreCase("nl")){
             productTitle = ConfigReader.getValue("nl.properties","productName");
             productDescription = ConfigReader.getValue("nl.properties","productDescription");
         } else {
@@ -44,7 +45,7 @@ public class ProductSD {
 
     @When("user switches language and selects a product")
     public void user_switches_language_and_selects_a_product() {
-       hp.switchLanguage();
+       hp.setLanguage(lang);
     }
 
     @Then("user validates the product price")
