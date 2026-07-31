@@ -34,6 +34,10 @@ public class DriverFactory {
                 ChromeOptions options = new ChromeOptions();
                 if (headless.equalsIgnoreCase("true")){
                     options.addArguments("--headless=new");
+                    options.addArguments("--no-sandbox");
+                    options.addArguments("--disable-dev-shm-usage");
+                    options.addArguments("--window-size=1920,1080");
+                    System.out.println("HEADLESS DRIVER ACTIVE");
                 }
                 driver = new ChromeDriver(options);
                 driver.manage().window().maximize();
@@ -44,6 +48,10 @@ public class DriverFactory {
                 EdgeOptions edgeoptions = new EdgeOptions();
                 if (headless.equalsIgnoreCase("true")){
                     edgeoptions.addArguments("--headless=new");
+                    edgeoptions.addArguments("--window-size=1920,1080");
+                    edgeoptions.addArguments("--no-sandbox");
+                    edgeoptions.addArguments("--disable-dev-shm-usage");
+                    System.out.println("HEADLESS DRIVER ACTIVE");
                 }
                 driver = new EdgeDriver(edgeoptions);
                 driver.manage().window().maximize();
