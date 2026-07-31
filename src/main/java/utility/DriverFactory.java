@@ -27,10 +27,14 @@ public class DriverFactory {
         String browser = ConfigReader.getValue("config.properties","browser");
         int timeout = Integer.parseInt(ConfigReader.getValue("config.properties","pageLoadTimeout"));
         WebDriver driver;
+        String headless = ConfigReader.getValue("config.properties","headless");
 
         switch (browser.toLowerCase()) {
             case "chrome":
                 ChromeOptions options = new ChromeOptions();
+                if (headless.equalsIgnoreCase("true")){
+                    options.addArguments("--headless=new");
+                }
                 driver = new ChromeDriver(options);
                 driver.manage().window().maximize();
                 driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(timeout));
@@ -38,6 +42,9 @@ public class DriverFactory {
 
             case "edge":
                 EdgeOptions edgeoptions = new EdgeOptions();
+                if (headless.equalsIgnoreCase("true")){
+                    edgeoptions.addArguments("--headless=new");
+                }
                 driver = new EdgeDriver(edgeoptions);
                 driver.manage().window().maximize();
                 driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(timeout));
