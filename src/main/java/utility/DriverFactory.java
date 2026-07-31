@@ -35,7 +35,7 @@ public class DriverFactory {
                 if (headless.equalsIgnoreCase("true")){
                     options.addArguments("--headless=new");
                     options.addArguments("--no-sandbox");
-                    options.addArguments("--disable-dev-shm-usage");
+                    options.addArguments("--disable-gpu");
                     options.addArguments("--window-size=1920,1080");
                     System.out.println("HEADLESS DRIVER ACTIVE");
                 }
@@ -50,7 +50,7 @@ public class DriverFactory {
                     edgeoptions.addArguments("--headless=new");
                     edgeoptions.addArguments("--window-size=1920,1080");
                     edgeoptions.addArguments("--no-sandbox");
-                    edgeoptions.addArguments("--disable-dev-shm-usage");
+                    edgeoptions.addArguments("--disable-gpu");
                     System.out.println("HEADLESS DRIVER ACTIVE");
                 }
                 driver = new EdgeDriver(edgeoptions);

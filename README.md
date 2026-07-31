@@ -37,6 +37,10 @@ mvn test
 ```
 ---
 
+## Multi-language design
+The test suite support English and Nederlands. The user can use **language=en** or **language=nl**
+in config.properties to run the test suite is either English or NL respectively.
+
 ## Test Scenarios Covered
 1. **HomePage** - validated logo, navigation, footer, page title in English and Dutch and language switching functionality.
 2. **Navigation & Categories** - validated product grid, Applied filters + dynamic updates.
